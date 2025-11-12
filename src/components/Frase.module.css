@@ -1,0 +1,17 @@
+.fraseConteiner{
+    background-color: aqua;
+    border: black 2px solid;
+}
+
+.fraseTexto{
+    color: darkgreen;
+    background-color: bisque;
+    margin: 0;
+}
+
+.titulo{
+    font-size: 3.5rem;
+    color: purple;
+    background-color: violet;
+    border: 1px solid black;
+}
