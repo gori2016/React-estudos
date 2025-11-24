@@ -2,6 +2,7 @@ import Evento from './components/Evento';
 import './App.css';
 import style from './components/Frase.module.css';
 import Form from './components/Form';
+import Condicional from './components/Condicional';
 function App() {
   const nome = "Igoor"
 
@@ -9,9 +10,8 @@ function App() {
   const url = "https://placehold.co/600x400"
   return (
     <div className="App"> 
-      <h1 className={style.titulo}>Testando eventos!</h1>
-      <Form/>
-      <Evento/>
+      <h1>Testando renderização por condições</h1>
+      <Condicional />
      </div> 
   );
 }
