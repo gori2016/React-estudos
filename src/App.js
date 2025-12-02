@@ -1,17 +1,22 @@
-import Evento from './components/Evento';
 import './App.css';
-import style from './components/Frase.module.css';
-import Form from './components/Form';
-import Condicional from './components/Condicional';
+import OutraLista from './components/outraLista';
+import Saudacao from './components/Saudacao';
+import SeuNome from './components/SeuNome';
+import { useState } from 'react';
+
 function App() {
-  const nome = "Igoor"
+const [nome, setNome] = useState();  
 
 
-  const url = "https://placehold.co/600x400"
+
   return (
     <div className="App"> 
-      <h1>Testando renderização por condições</h1>
-      <Condicional />
+      <h1>stateLift</h1>
+      <SeuNome setNome={setNome} />
+      <p>O nome que aparece no input é: <p>{nome}</p></p>
+      <Saudacao nome={nome}/>
+
+      
      </div> 
   );
 }
