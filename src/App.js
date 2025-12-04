@@ -2,6 +2,7 @@ import './App.css';
 import Home from './pages/Home';
 import Contato from './pages/Contato';
 import Empresa from './pages/Empresa';
+import Footer from './layout/Footer';
 
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
@@ -25,7 +26,9 @@ function App() {
         <Route path="/empresa" element={<Empresa />} />
         <Route path="/contato" element={<Contato />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
+    
   );
 }
 
