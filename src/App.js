@@ -1,21 +1,31 @@
 import './App.css';
-import OutraLista from './components/outraLista';
-import Saudacao from './components/Saudacao';
-import SeuNome from './components/SeuNome';
-import { useState } from 'react';
-import MudarNome from './components/MudarNome';
-import Contador from './components/Contador';
+import Home from './pages/Home';
+import Contato from './pages/Contato';
+import Empresa from './pages/Empresa';
+
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
-const [nome, setNome] = useState();  
-
-
-
   return (
-    <div className="App"> 
-     <h1>Contador</h1>
-      <Contador />
-     </div> 
+    <BrowserRouter>
+      <ul>
+        <li>
+          <Link to="/home">Home</Link>
+        </li>
+        <li>
+          <Link to="/empresa">Empresa</Link>
+        </li>
+        <li>
+          <Link to="/contato">Contato</Link>
+        </li>
+      </ul>
+
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/empresa" element={<Empresa />} />
+        <Route path="/contato" element={<Contato />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
