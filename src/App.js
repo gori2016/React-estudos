@@ -3,31 +3,20 @@ import Home from './pages/Home';
 import Contato from './pages/Contato';
 import Empresa from './pages/Empresa';
 import Footer from './layout/Footer';
-
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import EscolherCor from './components/EscolherCor';
+import MostrarCor from './components/MostrarCor';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <ul>
-        <li>
-          <Link to="/home">Home</Link>
-        </li>
-        <li>
-          <Link to="/empresa">Empresa</Link>
-        </li>
-        <li>
-          <Link to="/contato">Contato</Link>
-        </li>
-      </ul>
+  const [cor, setCor] = useState("")
 
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/empresa" element={<Empresa />} />
-        <Route path="/contato" element={<Contato />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+  useEffect(() =>{
+    document.body.style.backgroundColor = cor
+  })
+  return (
+      <div>
+        <EscolherCor setCor={setCor}/>
+      </div>
     
   );
 }
