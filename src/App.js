@@ -7,12 +7,14 @@ import { useEffect, useState } from 'react';
 import EscolherCor from './components/EscolherCor';
 import MostrarCor from './components/MostrarCor';
 import Api from './components/Api'
+import Post from './components/Post';
 
 function App() {
  return(
   <div>
     <h1>Buscando dados na Api</h1>
     <Api/>
+    <Post/>
   </div>
  )
   

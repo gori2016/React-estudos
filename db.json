@@ -1,0 +1,19 @@
+{
+  "usuarios": [
+    {
+      "id": "fddf",
+      "nome": "Igor"
+    },
+    {
+      "id": "c762",
+      "nome": ""
+    },
+    {
+      "id": "228f",
+      "nome": "igorSEP"
+    }
+  ],
+  "scripts": {
+    "server": "json-server --watch db.json --port 5000"
+  }
+}
