@@ -1,74 +1,79 @@
 import { useState, useEffect } from "react"
 
 function Post() {
+  const [nome, setNome] = useState("")
+  const [usuarios, setUsuarios] = useState([])
 
-    /// estados, (memória do componente)///
-    /// crie uma variavel(nome) que começa vazia e uma função (setNome) para mudar esse valor///
-    const [nome, setNome] = useState("")
+  // BUSCAR USUÁRIOS
+  useEffect(() => {
+    fetch("http://localhost:5000/usuarios")
+      .then(res => res.json())
+      .then(data => setUsuarios(data))
+  }, [])
 
-
-    ///crie uma lista de vazia de usuarios
-    const [usuarios, setUsuarios] = useState([])
-
-
-    // busca os dados quando o componente abre 
-    useEffect(() => {
-        //faça um pedido para a api e me traga os usuarios 
-        fetch("http://localhost:5000/usuarios")
-            //transforma a resposta em Java Script
-            .then(res => res.json())
-
-            //Guarde esses dados no state usuarios
-            .then(data => setUsuarios(data))
-        //array vazio é para rodar uma unica vez
-    }, [])
-
-
-    // função para salvar usuário só vai rodar quando vc apertar o botão
-    function salvarUsuario() {
-        //API, salve um novo usuario com esse nome
-        fetch("http://localhost:5000/usuarios", {
-            //Post = enviar dados
-            method: "POST",
-            //headers diz que e JSON
-            headers: {
-                "Content-Type": "application/json"
-            },
-            //BODY = o dado vai para db.json
-            body: JSON.stringify({
-                nome: nome
-            })
-        })
-            // RESPOSTA DA API
-            // transforma a resposta da Api em javaScript
-            .then(res => res.json())
-            //data é o resultado do res.json() já em formato javaScript
-            .then(data => {
-
-                // adiciona o novo usuário ao array de usuários existente
-                setUsuarios([...usuarios, data])
-
-                //limpa o input após salvar
-                setNome("")
-            })
-
-            if(nome === ""){
-                alert("Não deixe o input vazio.")
-            }else{
-                 alert("Você salvou um usuário!")
-            }
-
-           
-
+  // SALVAR USUÁRIO
+  function salvarUsuario() {
+    if (nome.trim() === "") {
+      alert("Não deixe o input vazio.")
+      return
     }
 
+    fetch("http://localhost:5000/usuarios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ nome })
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUsuarios([...usuarios, data])
+        setNome("")
+        alert("Você salvou um usuário!")
+      })
+  }
 
-    return (
-        <div>
-            <input onChange={e => setNome(e.target.value)} type="text" placeholder="Digite seu nome" value={nome} />
-            <button onClick={salvarUsuario}>Salvar Usuario</button>
-        </div>
-    )
+  // 👉 FUNÇÃO DE DELETE 
+
+  // recebe o id do usuario que vc quer deletar
+  function deletarUsuario(id) {
+    fetch(`http://localhost:5000/usuarios/${id}`, {
+      method: "DELETE"
+      //chama a rota de delete na API
+    })
+
+        //remove o usuario do estado
+        //não precisa buscar tudo denovo
+      .then(res => {
+        if (!res.ok) throw new Error("Erro ao deletar")
+        setUsuarios(usuarios.filter(user => user.id !== id))
+      })
+      .catch(() => alert("Erro ao deletar usuário"))
+  }
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Digite seu nome"
+        value={nome}
+        onChange={e => setNome(e.target.value)}
+      />
+
+      <button onClick={salvarUsuario}>Salvar Usuário</button>
+
+      <ul>
+        {usuarios.map(user => (
+          <li key={user.id}>
+            {user.nome}
+            <button onClick={() => deletarUsuario(user.id)}>
+              Deletar
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
 
 export default Post
